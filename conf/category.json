@@ -1,16 +1,58 @@
 {
-    "protocol_specifications" : { "chinese_name": "Ğ­Òé¹æ·¶", "rule_name": "protocol\\..*"},
-    "automatic_tool"          : { "chinese_name": "×Ô¶¯¹¤¾ß", "rule_name": "(?:auto|spider)\\..*"},
-    "injection_attack"        : { "chinese_name": "×¢Èë¹¥»÷", "rule_name": "attack\\.injection\\..*"},
-    "XSS_attack"              : { "chinese_name": "¿çÕ¾¹¥»÷", "rule_name": "attack\\.xss.*"},
-    "upload_attack"           : { "chinese_name": "ÉÏ´«¹¥»÷", "rule_name": "attack\\.upload.*"},
-    "other_attack"            : { "chinese_name": "ÆäËü¹¥»÷", "rule_name": "attack\\.(?!injection|xss|upload).*"},
-    "information_leakage"     : { "chinese_name": "ĞÅÏ¢Ğ¹Â©", "rule_name": "leakage\\..*"},
-    "malicious_page"          : { "chinese_name": "¶ñÒâÒ³Ãæ", "rule_name": "(?:malicious|risk)\\..*"},
-    "hotfix"                  : { "chinese_name": "ÈÈ²¹¶¡",   "rule_name": "fix\\..*"},
-    "exception_request"       : { "chinese_name": "Òì³£ÇëÇó", "rule_name": "exception\\..*"},
-    "abnormal_score"          : { "chinese_name": "Òì³£ÆÀ·Ö", "rule_name": "behavior\\.anomaly_score"},
-    "CC_attack"               : { "chinese_name": "CC¹¥»÷",   "rule_name": "ddos\\.cc"},
-    "audit_log"               : { "chinese_name": "Éó¼ÆÈÕÖ¾", "rule_name": "audit\\..*"},
-    "time_geo"                : { "chinese_name": "Ê±Óò¿ØÖÆ", "rule_name": "time_geo.*"}
+    "protocol_specifications": {
+        "chinese_name": "åè®®è§„èŒƒ",
+        "rule_name": "protocol\\..*"
+    },
+    "automatic_tool": {
+        "chinese_name": "è‡ªåŠ¨å·¥å…·",
+        "rule_name": "(?:auto|spider)\\..*"
+    },
+    "injection_attack": {
+        "chinese_name": "æ³¨å…¥æ”»å‡»",
+        "rule_name": "attack\\.injection\\..*"
+    },
+    "XSS_attack": {
+        "chinese_name": "è·¨ç«™æ”»å‡»",
+        "rule_name": "attack\\.xss.*"
+    },
+    "upload_attack": {
+        "chinese_name": "ä¸Šä¼ æ”»å‡»",
+        "rule_name": "attack\\.upload.*"
+    },
+    "other_attack": {
+        "chinese_name": "å…¶å®ƒæ”»å‡»",
+        "rule_name": "attack\\.(?!injection|xss|upload).*"
+    },
+    "information_leakage": {
+        "chinese_name": "ä¿¡æ¯æ³„æ¼",
+        "rule_name": "leakage\\..*"
+    },
+    "malicious_page": {
+        "chinese_name": "æ¶æ„é¡µé¢",
+        "rule_name": "(?:malicious|risk)\\..*"
+    },
+    "hotfix": {
+        "chinese_name": "çƒ­è¡¥ä¸",
+        "rule_name": "fix\\..*"
+    },
+    "exception_request": {
+        "chinese_name": "å¼‚å¸¸è¯·æ±‚",
+        "rule_name": "exception\\..*"
+    },
+    "abnormal_score": {
+        "chinese_name": "å¼‚å¸¸è¯„åˆ†",
+        "rule_name": "behavior\\.anomaly_score"
+    },
+    "CC_attack": {
+        "chinese_name": "CCæ”»å‡»",
+        "rule_name": "ddos\\.cc"
+    },
+    "audit_log": {
+        "chinese_name": "å®¡è®¡æ—¥å¿—",
+        "rule_name": "audit\\..*"
+    },
+    "time_geo": {
+        "chinese_name": "æ—¶åŸŸæ§åˆ¶",
+        "rule_name": "time_geo.*"
+    }
 }

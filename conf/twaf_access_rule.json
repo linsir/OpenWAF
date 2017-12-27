@@ -1,40 +1,31 @@
 {
     "twaf_access_rule": {
         "state": true,
-        "log_state":true,
-        "rules":[
+        "log_state": true,
+        "rules": [
             {
-                "host":"^.*$",
-                "path":"/",
-                "uuid":"test_uuid1",
-                "forward":"test",
-                "client_ssl":false,
-                "server_ssl":false,
-                "forward_addr":"1.1.1.1",
+                "host": "^.*$",
+                "port": 3000,
+                "path": "/",
+                "uuid": "test_uuid1",
+                "forward": "waf",
+                "client_ssl": false,
+                "server_ssl": false,
+                "forward_addr": "120.27.250.76",
+                "forward_port": 5000,
                 "policy": "twaf_policy_conf"
             },
             {
-                "host":"qj.com",
-                "path":"/",
-                "uuid":"test_uuid2",
-                "forward":"test",
-                "client_ssl": true,
-                "client_ssl_cert": "/opt/openresty/bundle/lua-resty-core-0.1.6/t/cert/ocsp/chain.pem",
-                "ngx_ssl": true,
-                "ngx_ssl_cert": "/opt/openresty/bundle/lua-resty-core-0.1.6/t/cert/test.crt",
-                "ngx_ssl_key": "/opt/openresty/bundle/lua-resty-core-0.1.6/t/cert/test.key",
-                "forward_addr": "1.1.1.1",
-                "policy": "twaf_policy_conf"
-            },
-            {
-                "host":"jq.com",
-                "path":"/",
-                "uuid":"test_uuid3",
-                "forward":"test",
-                "ngx_ssl": true,
+                "host": "www.youka.la",
+                "port": 3000,
+                "path": "/",
+                "uuid": "test_uuid3",
+                "forward": "waf",
+                "ngx_ssl": false,
                 "ngx_ssl_cert": "/usr/local/openresty/nginx/conf/ssl/nginx.crt",
                 "ngx_ssl_key": "/usr/local/openresty/nginx/conf/ssl/nginx.key",
-                "forward_addr": "1.1.1.1",
+                "forward_addr": "127.0.0.1",
+                "forward_port": 5000,
                 "policy": "twaf_policy_conf"
             }
         ]
