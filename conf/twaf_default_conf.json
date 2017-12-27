@@ -7,114 +7,114 @@
             "twaf_limit_conn"
         ]
     },
-    "init_register" : {
-        "twaf_attack_response":   "lib.twaf.twaf_attack_response",
-        "twaf_secrules":          "lib.twaf.twaf_secrules",
-        "twaf_anti_mal_crawler":  "lib.twaf.twaf_anti_mal_crawler",
-        "twaf_limit_conn":        "lib.twaf.twaf_anti_cc.twaf_anti_cc",
-        
-        "libinjection":           "resty.libinjection",
-        "twaf_access_rule":       "lib.twaf.twaf_access_rule",
-        "twaf_ssl_cert":          "lib.twaf.twaf_ssl_cert",
-        "twaf_log":               "lib.twaf.twaf_log",
-        "twaf_balancer":          "lib.twaf.twaf_balancer"
+    "init_register": {
+        "twaf_attack_response": "lib.twaf.twaf_attack_response",
+        "twaf_secrules": "lib.twaf.twaf_secrules",
+        "twaf_anti_mal_crawler": "lib.twaf.twaf_anti_mal_crawler",
+        "twaf_limit_conn": "lib.twaf.twaf_anti_cc.twaf_anti_cc",
+        "libinjection": "resty.libinjection",
+        "twaf_access_rule": "lib.twaf.twaf_access_rule",
+        "twaf_ssl_cert": "lib.twaf.twaf_ssl_cert",
+        "twaf_log": "lib.twaf.twaf_log",
+        "twaf_balancer": "lib.twaf.twaf_balancer"
     },
-    "twaf_global" : {
-        "debug_log_level":"DEBUG",
+    "twaf_global": {
+        "debug_log_level": "DEBUG",
         "unique_id_len": 34,
         "dict_name": "twaf_shm",
         "timer_flush_expired": 10,
-        "process_multipart_body":true,
-        "allow_unknown_content_types":true,
-        "allowed_content_types":{
+        "process_multipart_body": true,
+        "allow_unknown_content_types": true,
+        "allowed_content_types": {
             "text/xml": true
         },
-        "simulation":false,
+        "simulation": false,
+        "use_cdn": false,
         "category_path": "/opt/OpenWAF/conf/category.json"
     },
-    "twaf_secrules":{
+    "twaf_secrules": {
         "state": true,
         "reqbody_state": true,
         "header_filter_state": true,
         "body_filter_state": false,
         "system_rules_state": true,
-        "reqbody_limit":134217728,
-        "respbody_limit":524288,
+        "reqbody_limit": 134217728,
+        "respbody_limit": 524288,
         "pre_path": "/opt/OpenWAF/",
         "path": "lib/twaf/inc/knowledge_db/twrules",
         "recommend": 9,
-        "rules_id":{},
-        "user_defined_rules":[]
+        "rules_id": {},
+        "user_defined_rules": []
     },
-    "twaf_access_rule" : {
-        "log_state":true,
-        "action":"DENY",
-        "action_meta":403,
-        "rules":{}
+    "twaf_access_rule": {
+        "log_state": true,
+        "action": "DENY",
+        "action_meta": 403,
+        "rules": {}
     },
     "twaf_attack_response": {
-        "state":true,
-        "detail_state":true
+        "state": true,
+        "detail_state": true
     },
     "twaf_anti_mal_crawler": {
-        "state":true,
+        "state": true,
         "dict_state": false,
-        "cookie_state":true,
-        "log_state":true,
-        "force_scan_robots_state":true,
+        "cookie_state": true,
+        "log_state": true,
+        "force_scan_robots_state": true,
         "force_scan_times": 3,
-        "shared_dict_key":"remote_addr",
-        "timeout":300,
-        "crawler_cookie_name":"TWAF_CRAWLER",
-        "mal_cookie_name":"TWAF_MCRAWLER",
-        "trap_uri":"/abc/abc.html",
-        "trap_args":"id=1",
-        "action":"DENY",
-        "action_meta":403
+        "shared_dict_key": "remote_addr",
+        "timeout": 300,
+        "crawler_cookie_name": "TWAF_CRAWLER",
+        "mal_cookie_name": "TWAF_MCRAWLER",
+        "trap_uri": "/abc/abc.html",
+        "trap_args": "id=1",
+        "action": "DENY",
+        "action_meta": 403
     },
     "twaf_limit_conn": {
-        "state":true,
-        "log_state":true,
-        "trigger_state":true,
-        "clean_state":true,
-        "trigger_thr":{    
-            "req_flow_max":107374182,
-            "req_count_max":10000
+        "state": true,
+        "log_state": true,
+        "trigger_state": true,
+        "clean_state": true,
+        "trigger_thr": {
+            "req_flow_max": 107374182,
+            "req_count_max": 10000
         },
-        "clean_thr":{
-            "new_conn_max":40,
-            "conn_max":100,
-            "req_max":50,
+        "clean_thr": {
+            "new_conn_max": 40,
+            "conn_max": 100,
+            "req_max": 50,
             "uri_frequency_max": 3000
         },
         "attacks": 1,
-        "timer_flush_expired":10,
-        "interval":10,
-        "shared_dict_name":"twaf_limit_conn",
-        "shared_dict_key":"remote_addr",
-        "action":"DENY",
-        "action_meta":403,
-        "timeout":30
+        "timer_flush_expired": 10,
+        "interval": 10,
+        "shared_dict_name": "twaf_limit_conn",
+        "shared_dict_key": "remote_addr",
+        "action": "DENY",
+        "action_meta": 403,
+        "timeout": 30
     },
     "twaf_reqstat": {
-        "state":true,
-        "safe_state":true,
-        "access_state":true,
-        "upstream_state":true,
-        "shared_dict_name":"twaf_reqstat"
+        "state": true,
+        "safe_state": true,
+        "access_state": true,
+        "upstream_state": true,
+        "shared_dict_name": "twaf_reqstat"
     },
     "twaf_log": {
-        "access_log_state":false,
-        "security_log_state":true,
-        "sock_type":"udp",
-        "content_type":"JSON",
-        "host":"127.0.0.1",
-        "port":60099,
-        "flush_limit":0,
-        "drop_limit":65507,
-        "max_retry_times":5,
+        "access_log_state": false,
+        "security_log_state": true,
+        "sock_type": "udp",
+        "content_type": "JSON",
+        "host": "127.0.0.1",
+        "port": 60099,
+        "flush_limit": 0,
+        "drop_limit": 65507,
+        "max_retry_times": 5,
         "size_limit": 200,
-        "ssl":false,
+        "ssl": false,
         "safe_event_format": {
             "ctx": [
                 "category",

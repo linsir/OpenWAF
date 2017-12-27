@@ -1,6 +1,7 @@
 {
     "twaf_global": {
-        "simulation": false
+        "simulation": false,
+        "use_cdn": true
     },
     "twaf_secrules": {
         "state": true,

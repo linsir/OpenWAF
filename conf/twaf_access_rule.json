@@ -4,7 +4,7 @@
         "log_state": true,
         "rules": [
             {
-                "host": "^.*$",
+                "host": "linsir.org",
                 "port": 3000,
                 "path": "/",
                 "uuid": "test_uuid1",
