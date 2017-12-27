@@ -2,9 +2,9 @@
     "modules_order": {
         "access": [
             "twaf_attack_response",
+            "twaf_limit_conn",
             "twaf_secrules",
-            "twaf_anti_mal_crawler",
-            "twaf_limit_conn"
+            "twaf_anti_mal_crawler"
         ]
     },
     "init_register": {
