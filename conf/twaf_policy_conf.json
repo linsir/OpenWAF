@@ -1,7 +1,8 @@
 {
     "twaf_global": {
         "simulation": false,
-        "use_cdn": true
+        "use_cdn": true,
+        "debug_log_level": "DEBUG"
     },
     "twaf_secrules": {
         "state": true,

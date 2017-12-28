@@ -4,15 +4,15 @@
         "log_state": true,
         "rules": [
             {
-                "host": "linsir.org",
+                "host": "^.*$",
                 "port": 3000,
                 "path": "/",
-                "uuid": "test_uuid1",
+                "uuid": "default_uuid1",
                 "forward": "waf",
                 "client_ssl": false,
                 "server_ssl": false,
-                "forward_addr": "120.27.250.76",
-                "forward_port": 5000,
+                "forward_addr": "192.168.1.100",
+                "forward_port": 80,
                 "policy": "twaf_policy_conf"
             },
             {
