@@ -19,6 +19,7 @@
         "twaf_balancer": "lib.twaf.twaf_balancer"
     },
     "twaf_global": {
+        "debug": false,
         "debug_log_level": "DEBUG",
         "unique_id_len": 34,
         "dict_name": "twaf_shm",

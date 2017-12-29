@@ -2,6 +2,7 @@
     "twaf_global": {
         "simulation": false,
         "use_cdn": true,
+        "debug": true,
         "debug_log_level": "DEBUG"
     },
     "twaf_secrules": {
