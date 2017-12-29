@@ -65,6 +65,7 @@ end
 local function _get_reqstat_safe_info(info, key)
 
     local safe_keys = reqstat_dict:get(modules_name.."_safe_keys")
+    ngx_log(ngx_ERR, key, cjson.encode(safe_keys))
     stat_safe       = cjson.decode(safe_keys) or stat_safe
     
     for k, _ in pairs(stat_safe) do
@@ -246,6 +247,9 @@ local function _log_safe_stat(safe_event, key)
             reqstat_dict:add(key.."_"..k, 0)
             reqstat_dict:incr(key.."_"..k, 1)
             
+            local safe_keys = reqstat_dict:get(modules_name.."_safe_keys")
+            ngx_log(ngx_ERR, cjson.encode(stat_safe))
+            stat_safe = cjson.decode(safe_keys) or stat_safe
             if not stat_safe[k] then
                 stat_safe[k] = 1
                 reqstat_dict:set(modules_name.."_safe_keys", cjson.encode(stat_safe))
