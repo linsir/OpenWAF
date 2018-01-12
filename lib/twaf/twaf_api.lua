@@ -86,13 +86,19 @@ function _M.content(self, _twaf)
         log.reason  = "string_ssplit was wrong in twaf_func.lua"
         break
     end
-    
+
+    if not api[u[1]] then
+        log.success = 0
+        log.reason  = "no api -- " .. u[1]
+        break
+    end
+
     if not api[u[1]][method] then
         log.success = 0
         log.reason  = "no api -- " .. u[1]
         break
     end
-    
+
     if #u[#u] == 0 then
         u[#u] = nil
     end

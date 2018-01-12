@@ -11,7 +11,7 @@
         "meta": "403",
         "severity": "medium",
         "rule_name": "attack.commentSpam",
-        "desc": "¼ì²âÀ¬»øĞÅÏ¢£¬¼ì²éUser-AgentÇëÇóÍ·µÄÖµÎª³£¼ûÀ¬»ø¹ã¸æ·¢ËÍÕßµÄHTTPÇëÇó",
+        "desc": "æ£€æµ‹åƒåœ¾ä¿¡æ¯ï¼Œæ£€æŸ¥User-Agentè¯·æ±‚å¤´çš„å€¼ä¸ºå¸¸è§åƒåœ¾å¹¿å‘Šå‘é€è€…çš„HTTPè¯·æ±‚",
         "match": [
             {
                 "vars": [
@@ -46,7 +46,7 @@
         "action": "pass",
         "severity": "medium",
         "rule_name": "attack.commentSpam.a",
-        "desc": "¼ì²âÀ¬»øĞÅÏ¢£¬¼ì²é²ÎÊıÖĞÒÔhttp:¿ªÍ·µÄHTTPÇëÇó",
+        "desc": "æ£€æµ‹åƒåœ¾ä¿¡æ¯ï¼Œæ£€æŸ¥å‚æ•°ä¸­ä»¥http:å¼€å¤´çš„HTTPè¯·æ±‚",
         "match": [
             {
                 "vars": [
@@ -123,7 +123,7 @@
         "action": "pass",
         "severity": "medium",
         "rule_name": "attack.commentSpam.b",
-        "desc": "¼ì²âÀ¬»øĞÅÏ¢£¬¼ì²é²ÎÊıÖĞº¬ÓĞ4¸ö¼°ÒÔÉÏhttp:/µÄHTTPÇëÇó",
+        "desc": "æ£€æµ‹åƒåœ¾ä¿¡æ¯ï¼Œæ£€æŸ¥å‚æ•°ä¸­å«æœ‰4ä¸ªåŠä»¥ä¸Šhttp:/çš„HTTPè¯·æ±‚",
         "match": [
             {
                 "vars": [
@@ -157,7 +157,7 @@
         "meta": "403",
         "severity": "high",
         "rule_name": "attack.dirTraversal",
-        "desc": "¼ì²âÂ·¾¶±éÀú¹¥»÷£¬¼ì²éÇëÇóURI¡¢ÇëÇóÍ·¡¢ÇëÇóÌå",
+        "desc": "æ£€æµ‹è·¯å¾„éå†æ”»å‡»ï¼Œæ£€æŸ¥è¯·æ±‚URIã€è¯·æ±‚å¤´ã€è¯·æ±‚ä½“",
         "match": [
             {
                 "vars": [
@@ -194,7 +194,7 @@
         "meta": "403",
         "severity": "high",
         "rule_name": "attack.dirTraversal.a",
-        "desc": "¼ì²âÂ·¾¶±éÀú¹¥»÷£¬¼ì²éÇëÇóÎÄ¼şÃû¡¢²ÎÊı",
+        "desc": "æ£€æµ‹è·¯å¾„éå†æ”»å‡»ï¼Œæ£€æŸ¥è¯·æ±‚æ–‡ä»¶åã€å‚æ•°",
         "match": [
             {
                 "vars": [
@@ -223,7 +223,7 @@
         "meta": "403",
         "severity": "critical",
         "rule_name": "attack.injection.cf",
-        "desc": "¼ì²âÕë¶ÔColdFusion·şÎñÆ÷µÄ×¢Èë¹¥»÷£¬¼ì²éCookie¡¢²ÎÊı",
+        "desc": "æ£€æµ‹é’ˆå¯¹ColdFusionæœåŠ¡å™¨çš„æ³¨å…¥æ”»å‡»ï¼Œæ£€æŸ¥Cookieã€å‚æ•°",
         "match": [
             {
                 "vars": [
@@ -261,7 +261,7 @@
         "meta": "403",
         "severity": "critical",
         "rule_name": "attack.injection.cf.a",
-        "desc": "¼ì²âÕë¶ÔColdFusion·şÎñÆ÷µÄ×¢Èë¹¥»÷£¬¼ì²éÇëÇóURI¡¢ÇëÇóÍ·¡¢ÇëÇóÌå",
+        "desc": "æ£€æµ‹é’ˆå¯¹ColdFusionæœåŠ¡å™¨çš„æ³¨å…¥æ”»å‡»ï¼Œæ£€æŸ¥è¯·æ±‚URIã€è¯·æ±‚å¤´ã€è¯·æ±‚ä½“",
         "match": [
             {
                 "vars": [
@@ -303,7 +303,7 @@
         "meta": "403",
         "severity": "critical",
         "rule_name": "attack.injection.ldap",
-        "desc": "¼ì²âLDAP×¢Èë¹¥»÷£¬¼ì²éCookie¡¢²ÎÊı",
+        "desc": "æ£€æµ‹LDAPæ³¨å…¥æ”»å‡»ï¼Œæ£€æŸ¥Cookieã€å‚æ•°",
         "match": [
             {
                 "vars": [
@@ -341,7 +341,7 @@
         "meta": "403",
         "severity": "critical",
         "rule_name": "attack.injection.ldap.a",
-        "desc": "¼ì²âLDAP×¢Èë¹¥»÷£¬¼ì²éÇëÇóURI¡¢ÇëÇóÍ·¡¢ÇëÇóÌå",
+        "desc": "æ£€æµ‹LDAPæ³¨å…¥æ”»å‡»ï¼Œæ£€æŸ¥è¯·æ±‚URIã€è¯·æ±‚å¤´ã€è¯·æ±‚ä½“",
         "match": [
             {
                 "vars": [
@@ -389,7 +389,7 @@
         "action": "pass",
         "severity": "critical",
         "rule_name": "attack.injection.osCmd",
-        "desc": "¼ì²âÃüÁî×¢Èë¹¥»÷£¬¼ì²éCookie¡¢²ÎÊı",
+        "desc": "æ£€æµ‹å‘½ä»¤æ³¨å…¥æ”»å‡»ï¼Œæ£€æŸ¥Cookieã€å‚æ•°",
         "match": [
             {
                 "vars": [
@@ -430,7 +430,7 @@
         "meta": "403",
         "severity": "critical",
         "rule_name": "attack.injection.sql.libinjection",
-        "desc": "sqli·À»¤",
+        "desc": "sqlié˜²æŠ¤",
         "match": [
             {
                 "vars": [
@@ -467,7 +467,7 @@
         "meta": "403",
         "severity": "high",
         "rule_name": "attack.xss.libinjection",
-        "desc": "xss·À»¤",
+        "desc": "xssé˜²æŠ¤",
         "match": [
             {
                 "vars": [

@@ -1,34 +1,119 @@
 {
-    "twaf_global":{
-        "simulation":false
+    "twaf_global": {
+        "simulation": false,
+        "use_cdn": true,
+        "debug": true,
+        "debug_log_level": "DEBUG"
     },
-    "twaf_secrules":{
+    "twaf_secrules": {
         "state": true,
-        "rules_id" : {
+        "reqbody_state": true,
+        "header_filter_state": true,
+        "body_filter_state": true,
+        "system_rules_state": true,
+        "rules_id": {
+            "700002": [{"URI":"^/MP"}]
         },
-        "user_defined_rules": [
-        ],
-        "disable_vars":[
-        ]
+        "user_defined_rules": [],
+        "disable_vars": []
     },
-    "twaf_anti_mal_crawler":{
-        "state":true,
-        "force_scan_robots_state":true
+    "twaf_anti_mal_crawler": {
+        "state": false,
+        "force_scan_robots_state": true
+    },
+    "twaf_attack_response": {
+        "state": true,
+        "detail_state": true
     },
     "twaf_limit_conn": {
-        "state":true,
-        "trigger_thr":{    
-            "req_flow_max":107374182,
-            "req_count_max":10000
+        "state": true,
+        "trigger_state": true,
+        "trigger_thr": {
+            "req_flow_max": 5485760,
+            "req_count_max": 200
         },
-        "clean_thr":{
-            "new_conn_max":40,
-            "conn_max":100,
-            "req_max":50,
-            "uri_frequency_max": 3000
+        "clean_thr": {
+            "new_conn_max": 20,
+            "conn_max": 100,
+            "req_max": 30,
+            "uri_frequency_max": 300
         },
         "attacks": 1,
-        "action":"DENY",
-        "action_meta":403
+        "action": "DENY",
+        "action_meta": 403
+    },
+    "twaf_log": {
+        "access_log_state": true,
+        "security_log_state": true,
+        "sock_type": "udp",
+        "content_type": "JSON",
+        "host": "192.168.1.119",
+        "port": 60099,
+        "flush_limit": 0,
+        "drop_limit": 65507,
+        "max_retry_times": 5,
+        "size_limit": 200,
+        "ssl": false,
+        "safe_event_format": {
+            "ctx": [
+                "category",
+                "severity",
+                "action",
+                "action_meta",
+                "version",
+                "id",
+                "rule_name"
+            ],
+            "vars": [
+                "duration",
+                "matched_vars",
+                "matched_var_names"
+            ]
+        },
+        "access_log": [
+            "unique_id",
+            "remote_addr",
+            "remote_port",
+            "userid",
+            "dev_uuid",
+            "server_addr",
+            "server_port",
+            "remote_user",
+            "time_local",
+            "msec",
+            "request_method",
+            "request_uri",
+            "request_protocol",
+            "response_status",
+            "bytes_sent",
+            "http_referer",
+            "http_user_agent",
+            "gzip_ratio",
+            "http_host",
+            "policyid"
+        ],
+        "security_log": [
+            "unique_id",
+            "remote_addr",
+            "remote_port",
+            "userid",
+            "dev_uuid",
+            "server_addr",
+            "server_port",
+            "remote_user",
+            "time_local",
+            "msec",
+            "request_method",
+            "request_uri",
+            "request_protocol",
+            "response_status",
+            "bytes_sent",
+            "http_referer",
+            "http_user_agent",
+            "gzip_ratio",
+            "http_host",
+            "raw_header",
+            "policyid"
+        ]
     }
 }

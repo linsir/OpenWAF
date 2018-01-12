@@ -801,7 +801,7 @@ function _M.rule_log(self, _twaf, info)
     info.category = _M:rule_category(_twaf, info.rule_name)
     
     -- reqstat
-    ctx.events.stat[info.category] = 1
+    ctx.events.stat[info.category] = info.action
     
     -- attack response
     if info.action ~= "PASS" and info.action ~= "ALLOW" and info.action ~= "CHAIN" then
@@ -828,11 +828,15 @@ function _M:print_G(_twaf)
     if not shm then return end
     local dict = ngx.shared[shm]
     if not dict then return end
-    
+
     local path = dict:get("twaf_print_G")
-    if not path then return end
-    
-    dict:delete("twaf_print_G")
+
+    if gcf.debug == true then
+        dict:set("twaf_print_G", "/var/log/twaf_G.json")
+    else
+        if not path then return end
+        dict:delete("twaf_print_G")
+    end
     
     local data = {}
     local tablePrinted = {}
@@ -855,8 +859,8 @@ function _M:print_G(_twaf)
     end
     
     printTableItem(data, "_G", _G, printTableItem)
-    
-    local f = io.open(path, "a+")
+
+    local f = io.open(path, "w+")
     f:write(cjson.encode(data))
     f:close()
     
@@ -873,9 +877,13 @@ function _M:print_ctx(_twaf)
     if not dict then return end
     
     local path = dict:get("twaf_print_ctx")
-    if not path then return end
-    
-    dict:delete("twaf_print_ctx")
+
+    if gcf.debug == true then
+        dict:set("twaf_print_ctx", "/var/log/twaf_ctx.json")
+    else
+        if not path then return end
+        dict:delete("twaf_print_ctx")
+    end
     
     local func = function(tb, func, data, tablePrinted)
     
@@ -904,7 +912,7 @@ function _M:print_ctx(_twaf)
     
     local data = func(_twaf:ctx(), func)
     
-    local f = io.open(path, "a+")
+    local f = io.open(path, "w+")
     f:write(cjson.encode(data))
     f:close()
 end
