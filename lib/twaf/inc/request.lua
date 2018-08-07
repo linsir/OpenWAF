@@ -261,7 +261,7 @@ _M.request = {
     
         if ctx.nodup then return end
         
-        local cf                             = _twaf:get_config_param("twaf_global")
+        local gcf                             = _twaf:get_config_param("twaf_global")
         local request_headers                =  ngx.req.get_headers(0)
         local request_uri_args               =  ngx.req.get_uri_args(0)
         local request_post_args              = _vars_op("get_post_args", request_headers)
@@ -270,7 +270,7 @@ _M.request = {
         local request_body                   = _parse_request_body(_twaf, request, ctx, request_headers)
         local request_basename               = _basename(ngx.var.uri)
         local request_cookies                =  twaf_func:get_cookie_table()
-        local unique_id                      =  twaf_func:random_id(cf.unique_id_len)
+        local unique_id                      =  twaf_func:random_id(gcf.unique_id_len)
         
         ctx.TX      = {}
         ctx.storage = {}
@@ -288,8 +288,11 @@ _M.request = {
         
       --request.SESSION                      =  require "resty.session".start()
       --request.SESSION_DATA                 =  request.SESSION.data
-        
-        request.REMOTE_ADDR                  =  ngx.var.remote_addr
+        if gcf.use_cdn then
+            request.REMOTE_ADDR              =  ngx.var.http_x_forwarded_for
+        else
+            request.REMOTE_ADDR              =  ngx.var.remote_addr
+        end
         request.SCHEME                       =  ngx.var.scheme
         request.REMOTE_HOST                  =  ngx.var.host
         request.HTTP_HOST                    =  ngx.var.http_host

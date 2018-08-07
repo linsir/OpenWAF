@@ -92,7 +92,7 @@ function _M.content(self, _twaf)
         log.reason  = "no api -- " .. u[1]
         break
     end
-    
+
     if #u[#u] == 0 then
         u[#u] = nil
     end
