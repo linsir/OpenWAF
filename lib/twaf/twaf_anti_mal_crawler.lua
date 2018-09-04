@@ -206,12 +206,13 @@ function _M.header_filter(self, _twaf)
             if count >= cf.force_scan_times then
                 return
             end
-            
+
             local content_length = tonumber(headers['Content-Length'])
+            -- ngx_log(ngx.ERR, " content_length: ", twaf_func:table_to_string(headers))
             if not content_length or content_length < 28 then
                 return
             end
-            
+            -- ngx_log(ngx.ERR, " detail: ", ctx.append_response)
             local content_type = headers['Content-Type']
             if content_type then
                 local from = content_type:find("text/html")
@@ -235,6 +236,7 @@ function _M.header_filter(self, _twaf)
             local append_response = entry_no_robots_response:gsub("{{trap_uri}}", cf.trap_uri)
             ctx.force_scan_state  = true
             ctx.append_response   = append_response
+            -- ngx_log(ngx.ERR, " detail: ", ctx.append_response)
             twaf_func:content_length_operation(#append_response, "add")
             return
         end
@@ -271,18 +273,19 @@ function _M.body_filter(self, _twaf)
     if not ctx then
         return true
     end
-    
+    -- ngx_log(ngx.ERR, " state: ", ctx.append_response_state, " detail: ", ctx.append_response)
     if ctx.force_scan_state == true and not ctx.append_response_state then
     
         local new_response
         local from, to = ngx.arg[1]:find("<body.->")
-        
+        -- ngx_log(ngx_ERR, ctx.append_response)
         if to ~= nil then
         
             local tmp1                = ngx.arg[1]:sub(1, to)
             local tmp2                = ngx.arg[1]:sub(to + 1)
             new_response              = tmp1..ctx.append_response
             ngx.arg[1]                = new_response..tmp2
+            -- ngx_log(ngx_ERR, ctx.append_response)
             ctx.append_response_state = true
             
         elseif ngx.arg[2] == true then

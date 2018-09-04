@@ -3,7 +3,7 @@
 -- Copyright (C) OpenWAF
 
 local _M = {
-    _VERSION = "0.0.1"
+    _VERSION = "0.0.3"
 }
 
 local twaf_func = require "lib.twaf.inc.twaf_func"
@@ -24,15 +24,15 @@ local function _ip_version(self)
 end
 
 local function _basename(uri)
-	local m = ngx.re.match(uri, [=[(/[^/]*+)+]=], "oij")
-	return m[1]
+    local m = ngx.re.match(uri, [=[(/[^/]*+)+]=], "oij")
+    return m[1]
 end
 
 local function _vars_op(op, ...)
     
     local func = {
         get_post_args = function(request_headers)
-
+            
             request_headers = request_headers[1]
             local content_type = request_headers["content-type"]
             if not content_type then
@@ -132,25 +132,25 @@ local function _parse_request_body(_twaf, request, ctx, request_headers)
     local content_type_header = request_headers["Content-Type"]
     if type(content_type_header) == "table" then
         ngx.log(ngx[gcf.debug_log_level], "Request contained multiple content-type headers, bailing!")
-		ngx.exit(400)
-	end
+        ngx.exit(400)
+    end
     
     if (not content_type_header) then
         ngx.log(ngx[gcf.debug_log_level], "Request has no content type, ignoring the body")
-		return nil
+        return nil
 	end
     
     if ngx.re.find(content_type_header, [=[^multipart/form-data; boundary=]=], "oij") then
-		if (not gcf.process_multipart_body) then
-			return
-		end
+        if (not gcf.process_multipart_body) then
+            return
+        end
         
         ngx.req.read_body()
         
-		if ngx.req.get_body_file() then
+        if ngx.req.get_body_file() then
             ngx.log(ngx[gcf.debug_log_level], "Request body size larger than client_body_buffer_size, ignoring request body")
-			return
-		end
+            return
+        end
         
         local body = ngx.req.get_body_data()
         if not body then
@@ -205,35 +205,42 @@ local function _parse_request_body(_twaf, request, ctx, request_headers)
         
         return t
         
-	elseif ngx.re.find(content_type_header, [=[^application/x-www-form-urlencoded]=], "oij") then
+    elseif ngx.re.find(content_type_header, [=[^application/x-www-form-urlencoded]=], "oij") then
     
-		ngx.req.read_body()
-
-		if ngx.req.get_body_file() == nil then
+        ngx.req.read_body()
+        
+        if ngx.req.get_body_file() == nil then
             return ngx.req.get_body_data()
-		else
+        else
             ngx.log(ngx[gcf.debug_log_level], "Request body size larger than client_body_buffer_size, ignoring request body")
-			return nil
-		end
-    elseif gcf.allowed_content_types[content_type_header] then
-		--white list
-		ngx.req.read_body()
-
-		if not ngx.req.get_body_file() then
-			return ngx.req.get_body_data()
-		else
-            ngx.log(ngx[gcf.debug_log_level], "Request body size larger than client_body_buffer_size, ignoring request body")
-			return nil
-		end
-	else
-		if gcf.allow_unknown_content_types then
+            return nil
+        end
+        
+    else
+    
+        --content type whitelist
+        for k, _ in pairs(gcf.allowed_content_types) do
+            if ngx.re.find(content_type_header, k, "oij") then
+                ngx.req.read_body()
+                
+                if not ngx.req.get_body_file() then
+                    return ngx.req.get_body_data()
+                else
+                    ngx.log(ngx[gcf.debug_log_level], "Request body size larger than client_body_buffer_size, ignoring request body")
+                    return nil
+                end
+            end
+        end
+        
+        --unknown content type
+        if gcf.allow_unknown_content_types then
             ngx.log(ngx[gcf.debug_log_level], "Allowing request with content type " .. tostring(content_type_header))
-			return nil
-		else
+            return nil
+        else
             ngx.log(ngx[gcf.debug_log_level], tostring(content_type_header) .. " not a valid content type!")
-			ngx.exit(ngx.HTTP_FORBIDDEN)
-		end
-	end
+            ngx.exit(ngx.HTTP_FORBIDDEN)
+        end
+    end
 end
 
 local function _geo_look_up(_twaf, ip_version, addr)
@@ -260,8 +267,8 @@ _M.request = {
     rewrite = function(_twaf, request, ctx)
     
         if ctx.nodup then return end
+        local gcf                            = _twaf:get_config_param("twaf_global")
         
-        local gcf                             = _twaf:get_config_param("twaf_global")
         local request_headers                =  ngx.req.get_headers(0)
         local request_uri_args               =  ngx.req.get_uri_args(0)
         local request_post_args              = _vars_op("get_post_args", request_headers)
@@ -270,7 +277,6 @@ _M.request = {
         local request_body                   = _parse_request_body(_twaf, request, ctx, request_headers)
         local request_basename               = _basename(ngx.var.uri)
         local request_cookies                =  twaf_func:get_cookie_table()
-        local unique_id                      =  twaf_func:random_id(gcf.unique_id_len)
         
         ctx.TX      = {}
         ctx.storage = {}
@@ -316,7 +322,7 @@ _M.request = {
         request.REQUEST_LINE                 =  ngx.var.request
         request.REQUEST_LINE_ARGS            =  ngx.var.args
         request.REQUEST_PROTOCOL             =  ngx.var.server_protocol
-        request.UNIQUE_ID                    =  unique_id
+        request.UNIQUE_ID                    =  ngx.var.request_id
         request.TX                           =  ctx.TX
         request.TIME_EPOCH                   =  ngx.time()                         -- seconds since 1970, integer
         request.TIME                         =  os.date("%X", request.TIME_EPOCH)  -- hour:minute:second  --PS:the system time zone
@@ -340,7 +346,7 @@ _M.request = {
         request.ORIGINAL_DST_ADDR            =  ngx.var.original_dst_addr
         request.ORIGINAL_DST_PORT            =  tonumber(ngx.var.original_dst_port) or 0
       --request.USERID
-      --request.POLICYID
+        request.POLICYID                     = _twaf.config.global_conf_uuid
         request.HTTP_REFERER                 =  ngx.var.http_referer or "-"
         request.GZIP_RATIO                   =  ngx.var.gzip_ratio or "-"
         request.MSEC                         =  tonumber(ngx.var.msec) or 0.00
@@ -366,7 +372,6 @@ _M.request = {
     end,
     body_filter = function(_twaf, request, ctx)
     
-        request.RESPONSE_STATUS = ngx.status
         request.RESPONSE_BODY   = ngx.arg[1]
     
     --[[

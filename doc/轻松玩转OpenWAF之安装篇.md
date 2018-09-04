@@ -25,7 +25,7 @@ Table of Contents
 
 ```txt
     cd /opt
-    apt-get install wget git swig make perl build-essential zlib1g-dev libgeoip-dev libncurses5-dev libreadline-dev -y
+    apt-get install gcc wget git swig make perl build-essential zlib1g-dev libgeoip-dev libncurses5-dev libreadline-dev -y
     wget https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.gz
     wget https://www.openssl.org/source/openssl-1.0.2k.tar.gz
     wget https://openresty.org/download/openresty-1.11.2.2.tar.gz
@@ -115,7 +115,7 @@ PS:
                 --with-http_sub_module  \  
                 --with-http_geoip_module \  
                 --with-openssl=/opt/openssl-1.0.2k \ 
-                --with-pcre=/opt/pcre-8.40 \ 
+                --with-pcre=/opt/pcre-8.40
     make && make install 
 ```
 
